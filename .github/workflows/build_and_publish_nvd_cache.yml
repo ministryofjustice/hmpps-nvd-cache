@@ -1,7 +1,7 @@
 name: Download, build and publish NVD cache
 on:
   schedule:
-    - cron:  '0 13,23 * * *'
+    - cron:  '0 11,21 * * *'
   workflow_dispatch:
   # Needed so we can run it manually
 
@@ -24,7 +24,7 @@ jobs:
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: |
-          curl https://github.com/jeremylong/open-vulnerability-cli/releases/download/v9.0.4/vulnz-9.0.4.jar -s -L -o vulnz.jar
+          curl https://github.com/jeremylong/open-vulnerability-cli/releases/download/2f99b753d5fdafb46168217f4d9a604f968763b2/vulnz-9.0.4.jar -s -L -o vulnz.jar
           git reset --soft HEAD~1
           ls -la .
           java -Xmx4g -jar vulnz.jar cve --cache --directory ./nvd_cache  --requestCount=30 --debug --delay=8000 --maxRetry=40
