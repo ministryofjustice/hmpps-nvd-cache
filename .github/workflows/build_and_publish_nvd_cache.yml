@@ -24,7 +24,26 @@ jobs:
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: |
-          curl https://github.com/jeremylong/open-vulnerability-cli/releases/download/2f99b753d5fdafb46168217f4d9a604f968763b2/vulnz-9.0.4.jar -s -L -o vulnz.jar
+          VULNZ_VERSION=9.0.4
+          VULNZ_EXPECTED_COMMIT=2f99b753d5fdafb46168217f4d9a604f968763b2
+          VULNZ_REPO=https://github.com/jeremylong/open-vulnerability-cli
+
+          resolved_commit=$(git ls-remote --tags "$VULNZ_REPO" "refs/tags/v${VULNZ_VERSION}^{}" | awk '{print $1}')
+          if [[ -z "$resolved_commit" ]]; then
+            resolved_commit=$(git ls-remote --tags "$VULNZ_REPO" "refs/tags/v${VULNZ_VERSION}" | awk '{print $1}')
+          fi
+
+          if [[ -z "$resolved_commit" ]]; then
+            echo "::error::Tag v${VULNZ_VERSION} was not found in ${VULNZ_REPO}"
+            exit 1
+          fi
+
+          if [[ "$resolved_commit" != "$VULNZ_EXPECTED_COMMIT" ]]; then
+            echo "::error::Tag v${VULNZ_VERSION} resolves to ${resolved_commit}, expected ${VULNZ_EXPECTED_COMMIT}"
+            exit 1
+          fi
+
+          curl --fail --silent --show-error --location "https://github.com/jeremylong/open-vulnerability-cli/releases/download/v${VULNZ_VERSION}/vulnz-${VULNZ_VERSION}.jar" -o vulnz.jar
           git reset --soft HEAD~1
           ls -la .
           java -Xmx4g -jar vulnz.jar cve --cache --directory ./nvd_cache  --requestCount=30 --debug --delay=8000 --maxRetry=40
