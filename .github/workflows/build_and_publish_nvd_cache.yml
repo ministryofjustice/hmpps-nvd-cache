@@ -5,6 +5,11 @@ on:
   workflow_dispatch:
   # Needed so we can run it manually
 
+env:
+  VULNZ_VERSION: '9.0.4'
+  VULNZ_SHA256: '8ff2420dee8c1085b1b9f98cdcea8f49cc521da8f285ba421b063ee2b592989e'
+  VULNZ_REPO: 'https://github.com/jeremylong/open-vulnerability-cli'
+
 jobs:
   build:
     permissions:
@@ -23,8 +28,10 @@ jobs:
       - name: update
         env:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+          VULNZ_TAG: v${{ env.VULNZ_VERSION }}
         run: |
-          curl https://github.com/jeremylong/open-vulnerability-cli/releases/download/2f99b753d5fdafb46168217f4d9a604f968763b2/vulnz-9.0.4.jar -s -L -o vulnz.jar
+          curl --fail --silent --show-error --location "https://github.com/jeremylong/open-vulnerability-cli/releases/download/${VULNZ_TAG}/vulnz-${VULNZ_VERSION}.jar" -o vulnz.jar
+          echo "${VULNZ_SHA256} vulnz.jar" | sha256sum -c -
           git reset --soft HEAD~1
           ls -la .
           java -Xmx4g -jar vulnz.jar cve --cache --directory ./nvd_cache  --requestCount=30 --debug --delay=8000 --maxRetry=40
