@@ -7,7 +7,7 @@ on:
 
 env:
   VULNZ_VERSION: '9.0.4'
-  VULNZ_EXPECTED_COMMIT: '2f99b753d5fdafb46168217f4d9a604f968763b2'
+  VULNZ_SHA256: '8ff2420dee8c1085b1b9f98cdcea8f49cc521da8f285ba421b063ee2b592989e'
   VULNZ_REPO: 'https://github.com/jeremylong/open-vulnerability-cli'
 
 jobs:
@@ -30,22 +30,8 @@ jobs:
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
           VULNZ_TAG: v${{ env.VULNZ_VERSION }}
         run: |
-          resolved_commit=$(git ls-remote --tags "$VULNZ_REPO" "refs/tags/${VULNZ_TAG}^{}" | awk '{print $1}')
-          if [[ -z "$resolved_commit" ]]; then
-            resolved_commit=$(git ls-remote --tags "$VULNZ_REPO" "refs/tags/${VULNZ_TAG}" | awk '{print $1}')
-          fi
-
-          if [[ -z "$resolved_commit" ]]; then
-            echo "::error::Tag ${VULNZ_TAG} was not found in ${VULNZ_REPO}"
-            exit 1
-          fi
-
-          if [[ "$resolved_commit" != "$VULNZ_EXPECTED_COMMIT" ]]; then
-            echo "::error::Tag ${VULNZ_TAG} resolves to ${resolved_commit}, expected ${VULNZ_EXPECTED_COMMIT}"
-            exit 1
-          fi
-
           curl --fail --silent --show-error --location "https://github.com/jeremylong/open-vulnerability-cli/releases/download/${VULNZ_TAG}/vulnz-${VULNZ_VERSION}.jar" -o vulnz.jar
+          echo "${VULNZ_SHA256} vulnz.jar" | sha256sum -c -
           git reset --soft HEAD~1
           ls -la .
           java -Xmx4g -jar vulnz.jar cve --cache --directory ./nvd_cache  --requestCount=30 --debug --delay=8000 --maxRetry=40
