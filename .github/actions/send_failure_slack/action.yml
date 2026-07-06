@@ -1,5 +1,5 @@
-name: 'Send a Slack message when there is a failure'
-description: 'Converts npm audit-ci json output to a presentable table'
+name: 'Failure Slack message'
+description: 'Shared action to send a Slack message if the process fails'
 inputs:
   failure_message:
     description: 'Message to send'
