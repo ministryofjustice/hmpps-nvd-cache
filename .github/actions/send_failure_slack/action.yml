@@ -25,11 +25,11 @@ runs:
             - type: section
               text:
                 type: mrkdwn
-                text: "⚠️ ${{ inputs.failure_message }}. Please check the workflow results"
+                text: "⚠️ ${{ inputs.failure_message }}"
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Workflow:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job_id }}|${{ github.workflow }}>"
+                  text: "*Please check the workflow results:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job_id }}|${{ github.workflow }}>"
             - type: section
               text:
                 type: mrkdwn
