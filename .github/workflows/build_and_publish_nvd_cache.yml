@@ -39,7 +39,7 @@ jobs:
         # Note: the action below lives in the gh-pages branch
         uses: ./.github/actions/send_failure_slack
         with:
-          failure_message: 'Failed to download Vulnz'
+          failure_message: '*hmpps-nvd-cache refresh: Failed to download Vulnz*'
           slack_bot_token: ${{ secrets.HMPPS_SLACK_BOT_TOKEN }}
           channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID }}
       - name: Update the cache
@@ -69,7 +69,7 @@ jobs:
         # Note: the action below lives in the gh-pages branch
         uses: ./.github/actions/send_failure_slack
         with:
-          failure_message: 'Failed to refresh the cache'
+          failure_message: '*hmpps-nvd-cache refresh: Failed to update the cache*'
           slack_bot_token: ${{ secrets.HMPPS_SLACK_BOT_TOKEN }}
           channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID }} 
 
