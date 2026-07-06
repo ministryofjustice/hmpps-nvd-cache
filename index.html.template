@@ -46,8 +46,8 @@
     <h1>NVD Cache</h1>
 
     <p>
-      This repository hosts a daily-updated cache of the
-      <strong>National Vulnerability Database (NVD)</strong>.
+      This repository hosts a cache of the
+      <strong>NIST <a href="https://nvd.nist.gov/" TARGET="_BLANK">National Vulnerability Database (NVD)</a></strong>. It's updated twice a day.
     </p>
 
     <div class="meta">
