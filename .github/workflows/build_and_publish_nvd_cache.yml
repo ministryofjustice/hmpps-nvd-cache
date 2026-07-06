@@ -7,7 +7,7 @@ on:
 
 env:
   VULNZ_VERSION: '9.0.4'
-  VULNZ_SHA256: '8ff2420dee8c1085b1b9f98cdcea8f49cc521da8f285ba421b063ee2b592989ea'
+  VULNZ_SHA256: '8ff2420dee8c1085b1b9f98cdcea8f49cc521da8f285ba421b063ee2b592989a'
   VULNZ_REPO: 'https://github.com/jeremylong/open-vulnerability-cli'
 
 jobs:
