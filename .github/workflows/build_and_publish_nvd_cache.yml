@@ -36,6 +36,7 @@ jobs:
         continue-on-error: true
       - name: send a Slack message if the download/validation fails
         if: steps.download-vulnz.outcome == 'failure'
+        # Note: the action below lives in the gh-pages branch
         uses: ./.github/actions/send_failure_slack
         with:
           failure_message: 'Failed to download Vulnz'
@@ -65,6 +66,7 @@ jobs:
         continue-on-error: true
       - name: send a Slack message if the caching process fails
         if: steps.update-cache.outcome == 'failure'
+        # Note: the action below lives in the gh-pages branch
         uses: ./.github/actions/send_failure_slack
         with:
           failure_message: 'Failed to refresh the cache'
