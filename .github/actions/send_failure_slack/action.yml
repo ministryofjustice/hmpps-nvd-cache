@@ -1,4 +1,4 @@
-name: 'Send a Slack message when there's a failure'
+name: 'Send a Slack message when there is a failure'
 description: 'Converts npm audit-ci json output to a presentable table'
 inputs:
   failure_message:
