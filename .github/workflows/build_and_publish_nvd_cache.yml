@@ -66,7 +66,7 @@ jobs:
               - type: section
                 fields:
                   - type: mrkdwn
-                    text: "*Workflow:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.workflow }}>"
+                    text: "*Workflow:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}|${{ github.workflow }}>"
               - type: section
                 text:
                   type: mrkdwn
