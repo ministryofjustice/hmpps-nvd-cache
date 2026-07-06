@@ -39,8 +39,8 @@ jobs:
         uses: ./.github/actions/send_failure_slack
         with:
           failure_message: 'Failed to download Vulnz'
-          slack_bot_token: secrets.HMPPS_SLACK_BOT_TOKEN
-          channel_id: vars.SECURITY_ALERTS_SLACK_CHANNEL_ID 
+          slack_bot_token: ${{ secrets.HMPPS_SLACK_BOT_TOKEN }}
+          channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID }}
       - name: Update the cache
         id: update-cache
         env:
@@ -68,8 +68,8 @@ jobs:
         uses: ./.github/actions/send_failure_slack
         with:
           failure_message: 'Failed to refresh the cache'
-          slack_bot_token: secrets.HMPPS_SLACK_BOT_TOKEN
-          channel_id: vars.SECURITY_ALERTS_SLACK_CHANNEL_ID 
+          slack_bot_token: ${{ secrets.HMPPS_SLACK_BOT_TOKEN }}
+          channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID }} 
 
   deploy-pages:
     needs: build
