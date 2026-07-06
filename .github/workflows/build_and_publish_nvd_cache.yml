@@ -3,15 +3,6 @@ on:
   schedule:
     - cron:  '0 2,11,19 * * *'
   workflow_dispatch:
-    inputs:
-      simulate_failure:
-        description: Simulate a cache update failure to test alerts and deploy gating
-        required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
   # Needed so we can run it manually
 
 env:
