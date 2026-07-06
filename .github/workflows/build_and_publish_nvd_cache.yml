@@ -35,6 +35,7 @@ jobs:
           echo "${VULNZ_SHA256} vulnz.jar" | sha256sum -c -
           git reset --soft HEAD~1
           ls -la .
+          fail
           java -Xmx4g -jar vulnz.jar cve --cache --directory ./nvd_cache  --requestCount=30 --debug --delay=8000 --maxRetry=40
           rm vulnz.jar
           last_generated=$(date -u +%Y-%m-%dT%H:%M:%SZ)
@@ -48,7 +49,7 @@ jobs:
           git commit -am 'chore: update'
           git push origin gh-pages --force
           cat nvd_cache/nvdcve-modified.meta
-
+        continue-on-error: true
       - uses: slackapi/slack-github-action@03ea5433c137af7c0495bc0cad1af10403fc800c # v3.0.2
         if: steps.update-cache.conclusion=='failed'
         with:
