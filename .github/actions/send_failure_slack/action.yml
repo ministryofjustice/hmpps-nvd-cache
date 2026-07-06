@@ -29,7 +29,7 @@ runs:
             - type: section
               fields:
                 - type: mrkdwn
-                  text: "*Workflow:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}|${{ github.workflow }}>"
+                  text: "*Workflow:*\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job_id }}|${{ github.workflow }}>"
             - type: section
               text:
                 type: mrkdwn
