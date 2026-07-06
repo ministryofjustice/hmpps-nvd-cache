@@ -7,7 +7,7 @@ on:
 
 env:
   VULNZ_VERSION: '9.0.4'
-  VULNZ_SHA256: '8ff2420dee8c1085b1b9f98cdcea8f49cc521da8f285ba421b063ee2b592989a'
+  VULNZ_SHA256: '8ff2420dee8c1085b1b9f98cdcea8f49cc521da8f285ba421b063ee2b592989e'
   VULNZ_REPO: 'https://github.com/jeremylong/open-vulnerability-cli'
 
 jobs:
@@ -50,6 +50,7 @@ jobs:
         run: |
           git reset --soft HEAD~1
           ls -la .
+          exit 1
           java -Xmx4g -jar vulnz.jar cve --cache --directory ./nvd_cache  --requestCount=30 --debug --delay=8000 --maxRetry=40
           rm vulnz.jar
           last_generated=$(date -u +%Y-%m-%dT%H:%M:%SZ)
