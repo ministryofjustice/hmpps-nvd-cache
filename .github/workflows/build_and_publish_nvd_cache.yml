@@ -39,7 +39,7 @@ jobs:
         # Note: the action below lives in the gh-pages branch
         uses: ./.github/actions/send_failure_slack
         with:
-          failure_message: '*hmpps-nvd-cache refresh: Failed to download Vulnz*'
+          failure_message: '*hmpps-nvd-cache refresh: failed to download Vulnz*'
           slack_bot_token: ${{ secrets.HMPPS_SLACK_BOT_TOKEN }}
           channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID }}
       - name: Update the cache
@@ -50,7 +50,6 @@ jobs:
         run: |
           git reset --soft HEAD~1
           ls -la .
-          exit 1
           java -Xmx4g -jar vulnz.jar cve --cache --directory ./nvd_cache  --requestCount=30 --debug --delay=8000 --maxRetry=40
           rm vulnz.jar
           last_generated=$(date -u +%Y-%m-%dT%H:%M:%SZ)
@@ -70,7 +69,7 @@ jobs:
         # Note: the action below lives in the gh-pages branch
         uses: ./.github/actions/send_failure_slack
         with:
-          failure_message: '*hmpps-nvd-cache refresh: Failed to update the cache*'
+          failure_message: '*hmpps-nvd-cache refresh: failed to update the cache*'
           slack_bot_token: ${{ secrets.HMPPS_SLACK_BOT_TOKEN }}
           channel_id: ${{ vars.SECURITY_ALERTS_SLACK_CHANNEL_ID }} 
 
